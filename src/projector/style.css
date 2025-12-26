@@ -91,7 +91,7 @@ body.with-backdrop {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .round-screen {
