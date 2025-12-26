@@ -13,6 +13,7 @@ const teamIdEl = byId<HTMLParagraphElement>('team-id');
 const statusEl = byId<HTMLParagraphElement>('status');
 const appEl = byId<HTMLElement>('app');
 const readyScreenEl = byId<HTMLElement>('ready-screen');
+const readyTextEl = byId<HTMLParagraphElement>('ready-text');
 
 let currentSessionId: string | null = null;
 
@@ -23,6 +24,7 @@ const updateStatus = (text: string) => {
 const showReadyScreen = (teamId: number) => {
   const teamColor = TEAM_COLORS[teamId] ?? '#102432';
   document.documentElement.style.setProperty('--team-color', teamColor);
+  readyTextEl.textContent = `TEAM ${teamId + 1} READY`;
   appEl.classList.add('hidden');
   readyScreenEl.classList.remove('hidden');
 };

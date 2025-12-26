@@ -5,6 +5,7 @@ import { byId } from '../common/dom';
 import { getDatabaseInstance } from '../common/firebase';
 import { listenActiveSessionId } from '../common/session';
 import { TEAM_COLORS, TEAM_COUNT } from '../common/constants';
+import { INTRODUCTION_TEXT } from './content';
 
 const db = getDatabaseInstance();
 
@@ -14,6 +15,8 @@ const statusEl = byId<HTMLParagraphElement>('status');
 const mobileUrlEl = byId<HTMLParagraphElement>('mobile-url');
 const qrCanvas = byId<HTMLCanvasElement>('qr-canvas');
 const teamCountsEl = byId<HTMLUListElement>('team-counts');
+const introPanelEl = byId<HTMLElement>('intro-panel');
+const introTextEl = byId<HTMLElement>('intro-text');
 
 let sessionUnsubscribe: Unsubscribe | null = null;
 let countsUnsubscribe: Unsubscribe | null = null;
@@ -60,8 +63,14 @@ const bindSession = (sessionId: string | null) => {
 
   sessionUnsubscribe = onValue(ref(db, `sessions/${sessionId}`), (snapshot: DataSnapshot) => {
     const data = snapshot.val();
-    sessionPhaseEl.textContent = data?.phase ?? '-';
+    const phase = data?.phase ?? '-';
+    sessionPhaseEl.textContent = phase;
     statusEl.textContent = data?.phase ? 'Live' : 'Waiting for control.';
+    if (phase === 'introduction') {
+      introPanelEl.classList.remove('hidden');
+    } else {
+      introPanelEl.classList.add('hidden');
+    }
   });
 
   countsUnsubscribe = onValue(ref(db, `sessions/${sessionId}/teamCounts`), (snapshot: DataSnapshot) => {
@@ -78,3 +87,5 @@ const bindSession = (sessionId: string | null) => {
 };
 
 listenActiveSessionId(db, bindSession);
+
+introTextEl.innerHTML = INTRODUCTION_TEXT.map((line) => `<p>${line}</p>`).join('');
