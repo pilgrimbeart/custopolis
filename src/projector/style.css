@@ -91,6 +91,73 @@ body {
   display: none;
 }
 
+.round-screen {
+  min-height: 100vh;
+  padding: 32px 48px 48px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 24px;
+}
+
+.round-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+#round-title {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+#round-clock {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+.team-column {
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 18px;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.team-column h3 {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15rem;
+  color: #fff;
+}
+
+.customer-card {
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 8px;
+  height: 110px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.customer-card img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

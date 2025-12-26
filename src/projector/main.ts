@@ -4,7 +4,7 @@ import QRCode from 'qrcode';
 import { byId } from '../common/dom';
 import { getDatabaseInstance } from '../common/firebase';
 import { listenActiveSessionId } from '../common/session';
-import { TEAM_COLORS, TEAM_COUNT } from '../common/constants';
+import { CUSTOMERS_PER_TEAM, ROUND_SECONDS, TEAM_COLORS, TEAM_COUNT } from '../common/constants';
 import { INTRODUCTION_TEXT } from './content';
 
 const db = getDatabaseInstance();
@@ -15,11 +15,22 @@ const statusEl = byId<HTMLParagraphElement>('status');
 const mobileUrlEl = byId<HTMLParagraphElement>('mobile-url');
 const qrCanvas = byId<HTMLCanvasElement>('qr-canvas');
 const teamCountsEl = byId<HTMLUListElement>('team-counts');
+const qrStackEl = byId<HTMLElement>('qr-stack');
 const introPanelEl = byId<HTMLElement>('intro-panel');
 const introTextEl = byId<HTMLElement>('intro-text');
+const roundScreenEl = byId<HTMLElement>('round-screen');
+const roundTitleEl = byId<HTMLHeadingElement>('round-title');
+const roundClockEl = byId<HTMLParagraphElement>('round-clock');
+const teamGridEl = byId<HTMLElement>('team-grid');
 
 let sessionUnsubscribe: Unsubscribe | null = null;
 let countsUnsubscribe: Unsubscribe | null = null;
+let offsetUnsubscribe: Unsubscribe | null = null;
+let timerId: number | null = null;
+let serverOffsetMs = 0;
+let roundStartedAt: number | null = null;
+let currentRound: number | null = null;
+let currentPhase = '-';
 
 const baseUrl = import.meta.env.BASE_URL;
 const publicBaseUrl = import.meta.env.VITE_PUBLIC_BASE_URL;
@@ -28,6 +39,7 @@ const defaultBaseUrl = publicBaseUrl
   ? normalizeBaseUrl(publicBaseUrl)
   : new URL(baseUrl, window.location.origin).toString();
 const mobileUrl = new URL('mobile/', defaultBaseUrl).toString();
+const customerImgUrl = new URL('../common/assets/generic_customer.png', import.meta.url).toString();
 
 mobileUrlEl.textContent = mobileUrl;
 QRCode.toCanvas(qrCanvas, mobileUrl, {
@@ -41,9 +53,50 @@ QRCode.toCanvas(qrCanvas, mobileUrl, {
   console.error(error);
 });
 
+const formatRemaining = (remainingMs: number) => {
+  const totalSeconds = Math.max(0, Math.floor(remainingMs / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+};
+
+const updateRoundClock = () => {
+  if (!roundStartedAt) {
+    roundClockEl.textContent = formatRemaining(ROUND_SECONDS * 1000);
+    return;
+  }
+  const nowMs = Date.now() + serverOffsetMs;
+  const remainingMs = roundStartedAt + ROUND_SECONDS * 1000 - nowMs;
+  roundClockEl.textContent = formatRemaining(remainingMs);
+};
+
+const setTimerActive = (active: boolean) => {
+  if (timerId) {
+    window.clearInterval(timerId);
+    timerId = null;
+  }
+  if (active) {
+    updateRoundClock();
+    timerId = window.setInterval(updateRoundClock, 250);
+  }
+};
+
+const updatePhaseVisibility = () => {
+  const isIntroduction = currentPhase === 'introduction';
+  const isRound = /^round-\d+$/.test(currentPhase);
+
+  introPanelEl.classList.toggle('hidden', !isIntroduction);
+  roundScreenEl.classList.toggle('hidden', !isRound);
+  qrStackEl.classList.toggle('hidden', isRound);
+  setTimerActive(isRound && !!roundStartedAt);
+};
+
 const bindSession = (sessionId: string | null) => {
   sessionIdEl.textContent = sessionId ?? 'Not set';
   sessionPhaseEl.textContent = '-';
+  currentPhase = '-';
+  roundStartedAt = null;
+  currentRound = null;
 
   if (sessionUnsubscribe) {
     sessionUnsubscribe();
@@ -55,22 +108,33 @@ const bindSession = (sessionId: string | null) => {
     countsUnsubscribe = null;
   }
 
+  if (offsetUnsubscribe) {
+    offsetUnsubscribe();
+    offsetUnsubscribe = null;
+  }
+
   if (!sessionId) {
     statusEl.textContent = 'Waiting for control.';
     teamCountsEl.innerHTML = '';
+    updatePhaseVisibility();
     return;
   }
 
   sessionUnsubscribe = onValue(ref(db, `sessions/${sessionId}`), (snapshot: DataSnapshot) => {
     const data = snapshot.val();
-    const phase = data?.phase ?? '-';
-    sessionPhaseEl.textContent = phase;
+    currentPhase = data?.phase ?? '-';
+    currentRound = typeof data?.currentRound === 'number' ? data.currentRound : null;
+    roundStartedAt = typeof data?.roundStartedAt === 'number' ? data.roundStartedAt : null;
+    sessionPhaseEl.textContent = currentPhase;
     statusEl.textContent = data?.phase ? 'Live' : 'Waiting for control.';
-    if (phase === 'introduction') {
-      introPanelEl.classList.remove('hidden');
+    if (currentRound) {
+      roundTitleEl.textContent = `Round ${currentRound}`;
     } else {
-      introPanelEl.classList.add('hidden');
+      const match = currentPhase.match(/^round-(\d+)$/);
+      roundTitleEl.textContent = match ? `Round ${match[1]}` : 'Round';
     }
+    updateRoundClock();
+    updatePhaseVisibility();
   });
 
   countsUnsubscribe = onValue(ref(db, `sessions/${sessionId}/teamCounts`), (snapshot: DataSnapshot) => {
@@ -84,8 +148,40 @@ const bindSession = (sessionId: string | null) => {
       teamCountsEl.appendChild(item);
     }
   });
+
+  offsetUnsubscribe = onValue(ref(db, '.info/serverTimeOffset'), (snapshot: DataSnapshot) => {
+    serverOffsetMs = typeof snapshot.val() === 'number' ? snapshot.val() : 0;
+    updateRoundClock();
+  });
 };
 
 listenActiveSessionId(db, bindSession);
 
 introTextEl.innerHTML = INTRODUCTION_TEXT.map((line) => `<p>${line}</p>`).join('');
+
+const buildTeamGrid = () => {
+  teamGridEl.innerHTML = '';
+  for (let teamIndex = 0; teamIndex < TEAM_COUNT; teamIndex += 1) {
+    const column = document.createElement('div');
+    column.className = 'team-column';
+
+    const heading = document.createElement('h3');
+    heading.textContent = `Team ${teamIndex + 1}`;
+    heading.style.color = TEAM_COLORS[teamIndex];
+    column.appendChild(heading);
+
+    for (let customerIndex = 0; customerIndex < CUSTOMERS_PER_TEAM; customerIndex += 1) {
+      const card = document.createElement('div');
+      card.className = 'customer-card';
+      const img = document.createElement('img');
+      img.src = customerImgUrl;
+      img.alt = 'Customer';
+      card.appendChild(img);
+      column.appendChild(card);
+    }
+
+    teamGridEl.appendChild(column);
+  }
+};
+
+buildTeamGrid();

@@ -110,3 +110,18 @@ button:hover {
   width: 180px;
   justify-content: center;
 }
+
+.phase-buttons button.active {
+  background: #ffe6a1;
+  box-shadow: inset 0 0 0 2px #1b1b1b;
+}
+
+.start-round {
+  margin-top: 14px;
+  width: 180px;
+}
+
+.start-round:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

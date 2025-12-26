@@ -8,7 +8,7 @@
   </head>
   <body>
     <main class="screen">
-      <div class="qr-stack">
+      <div id="qr-stack" class="qr-stack">
         <canvas id="qr-canvas" width="220" height="220" aria-label="QR code"></canvas>
         <p id="mobile-url" class="qr-url">-</p>
         <ul id="team-counts" class="team-counts"></ul>
@@ -16,6 +16,13 @@
       <section id="intro-panel" class="intro-panel hidden">
         <h2>Introduction</h2>
         <div id="intro-text" class="intro-text"></div>
+      </section>
+      <section id="round-screen" class="round-screen hidden">
+        <header class="round-header">
+          <h1 id="round-title">Round</h1>
+          <p id="round-clock">03:00</p>
+        </header>
+        <div id="team-grid" class="team-grid"></div>
       </section>
       <p id="session-id" class="visually-hidden">Not set</p>
       <p id="session-phase" class="visually-hidden">-</p>

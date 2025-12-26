@@ -89,3 +89,89 @@ h1 {
 .hidden {
   display: none;
 }
+
+.round-screen {
+  position: fixed;
+  inset: 0;
+  padding: 20px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+  background: #f8fbff;
+}
+
+.round-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  color: #102432;
+}
+
+.round-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.round-header p {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.round-body {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 16px;
+  align-items: start;
+}
+
+.customer-list {
+  display: grid;
+  gap: 12px;
+}
+
+.customer-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 2px solid #102432;
+  background: #fff;
+  cursor: pointer;
+}
+
+.customer-card.selected {
+  background: #dce9ff;
+}
+
+.customer-card img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.customer-card span {
+  font-weight: 700;
+}
+
+.action-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.action-panel button {
+  border-radius: 12px;
+  border: 2px solid #102432;
+  background: #d9d9d9;
+  padding: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.action-panel button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

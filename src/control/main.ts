@@ -1,5 +1,5 @@
 // Control client entry point for session control.
-import { onValue, ref, set, type DataSnapshot, type Unsubscribe } from 'firebase/database';
+import { onValue, ref, serverTimestamp, set, type DataSnapshot, type Unsubscribe } from 'firebase/database';
 import { byId } from '../common/dom';
 import { getDatabaseInstance } from '../common/firebase';
 import { createSession, listenActiveSessionId } from '../common/session';
@@ -12,6 +12,7 @@ const mobileUrlEl = byId<HTMLParagraphElement>('mobile-url');
 const newSessionButton = byId<HTMLButtonElement>('new-session');
 const copyMobileButton = byId<HTMLButtonElement>('copy-mobile');
 const phaseButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-phase]'));
+const startRoundButton = byId<HTMLButtonElement>('start-round');
 
 const baseUrl = import.meta.env.BASE_URL;
 const publicBaseUrl = import.meta.env.VITE_PUBLIC_BASE_URL;
@@ -24,6 +25,7 @@ mobileUrlEl.textContent = defaultMobileUrl;
 
 let sessionUnsubscribe: Unsubscribe | null = null;
 let activeSessionId: string | null = null;
+let selectedPhase: string | null = null;
 
 const setPhase = async (phase: string) => {
   if (!activeSessionId) {
@@ -40,10 +42,15 @@ const setPhase = async (phase: string) => {
   await Promise.all(updates);
 };
 
+const updateStartButton = () => {
+  startRoundButton.disabled = !(activeSessionId && selectedPhase && /^round-\d+$/.test(selectedPhase));
+};
+
 const bindSession = (sessionId: string | null) => {
   activeSessionId = sessionId;
   sessionIdEl.textContent = sessionId ?? 'Not set';
   sessionPhaseEl.textContent = '-';
+  updateStartButton();
 
   if (sessionUnsubscribe) {
     sessionUnsubscribe();
@@ -93,6 +100,9 @@ phaseButtons.forEach((button) => {
     if (!phase) {
       return;
     }
+    selectedPhase = phase;
+    phaseButtons.forEach((item) => item.classList.toggle('active', item === button));
+    updateStartButton();
     button.disabled = true;
     try {
       await setPhase(phase);
@@ -103,4 +113,28 @@ phaseButtons.forEach((button) => {
       button.disabled = false;
     }
   });
+});
+
+startRoundButton.addEventListener('click', async () => {
+  if (!activeSessionId || !selectedPhase) {
+    return;
+  }
+  const match = selectedPhase.match(/^round-(\d+)$/);
+  if (!match) {
+    return;
+  }
+  const roundNumber = Number(match[1]);
+  startRoundButton.disabled = true;
+  try {
+    await Promise.all([
+      set(ref(db, `sessions/${activeSessionId}/currentRound`), roundNumber),
+      set(ref(db, `sessions/${activeSessionId}/roundNumber`), roundNumber),
+      set(ref(db, `sessions/${activeSessionId}/roundStartedAt`), serverTimestamp())
+    ]);
+  } catch (error) {
+    console.error(error);
+    sessionPhaseEl.textContent = 'Error starting round';
+  } finally {
+    updateStartButton();
+  }
 });
