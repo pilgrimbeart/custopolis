@@ -85,6 +85,7 @@ const updatePhaseVisibility = () => {
   const isIntroduction = currentPhase === 'introduction';
   const isRound = currentPhase === 'round';
 
+  document.body.classList.toggle('with-backdrop', !isRound);
   introPanelEl.classList.toggle('hidden', !isIntroduction);
   roundScreenEl.classList.toggle('hidden', !isRound);
   qrStackEl.classList.toggle('hidden', isRound);

@@ -9,8 +9,11 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    url("../projector/assets/initial_backdrop.png") center / cover no-repeat;
+  background: #ffffff;
+}
+
+body.with-backdrop {
+  background: url("../projector/assets/initial_backdrop.png") center / cover no-repeat;
 }
 
 .screen {
@@ -97,13 +100,14 @@ body {
   display: grid;
   grid-template-rows: auto 1fr;
   gap: 24px;
+  background: #ffffff;
 }
 
 .round-header {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  color: #fff;
+  color: #102432;
   text-transform: uppercase;
   letter-spacing: 0.2rem;
 }
@@ -126,12 +130,12 @@ body {
 }
 
 .team-column {
-  background: rgba(0, 0, 0, 0.55);
+  background: #ffffff;
   border-radius: 18px;
   padding: 16px;
   display: grid;
   gap: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  border: 1px solid #d0d7e2;
 }
 
 .team-column h3 {
@@ -139,17 +143,17 @@ body {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.15rem;
-  color: #fff;
+  color: #102432;
 }
 
 .customer-card {
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: #f4f7fb;
   border-radius: 14px;
   padding: 8px;
   height: 110px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #c9d3e1;
 }
 
 .customer-card img {

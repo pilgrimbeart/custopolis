@@ -37,11 +37,15 @@
         <div class="phase-buttons">
           <button data-phase="welcome">Welcome</button>
           <button data-phase="introduction">Introduction</button>
-          <button data-phase="round" data-round="1">Round 1</button>
-          <button data-phase="round" data-round="2">Round 2</button>
-          <button data-phase="round" data-round="3">Round 3</button>
+          <div class="round-row">
+            <div class="round-buttons">
+              <button data-phase="round" data-round="1">Round 1</button>
+              <button data-phase="round" data-round="2">Round 2</button>
+              <button data-phase="round" data-round="3">Round 3</button>
+            </div>
+            <button id="start-round" class="start-round" disabled>Start Round</button>
+          </div>
         </div>
-        <button id="start-round" class="start-round" disabled>Start Round</button>
       </section>
 
       <section class="panel">
