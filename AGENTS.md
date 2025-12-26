@@ -32,3 +32,4 @@ Since sometimes you can be quitted unexpectedly in the middle of work:
 - 2025-12-26: Team assignment uses a transaction-based round-robin counter per session.
 - 2025-12-26: TODO: tighten Firebase Realtime Database rules after initial connectivity test.
 - 2025-12-26: Split UI into projector (shared display), control (operator), and mobile (player).
+- 2025-12-26: Projector shows QR + backdrop; control is operator-only.

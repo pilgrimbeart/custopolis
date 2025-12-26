@@ -102,6 +102,7 @@ Each client is a single-page web app. There is no server-side code - the "contro
 So essentially it's a "real-time shooter" messaging setup, with common state shared by Firebase.
 The codebase uses Vite + TypeScript with vanilla DOM (no framework) and separate entry points for `/projector/`, `/control/`, and `/mobile/`.
 The architecture and code should minimise bandwidth use to keep the experience reliable for large groups on shared or cellular networks.
+The projector client displays the welcome backdrop and a top-left QR code; the control client shows no QR code.
 
 The QR code takes the player to the mobile client site, with credentials for the Firebase app.
 Once all assets are loaded the screen displays "Ready".
@@ -123,6 +124,7 @@ Setup
 1) Copy `.env.example` to `.env` and fill the Firebase config values.
 2) `npm install`
 3) `npm run dev` then open `/projector/` for the shared screen, `/control/` for the operator console, and `/mobile/` for player devices.
+4) Set `VITE_PUBLIC_BASE_URL` in `.env` when using GitHub Pages so QR codes point to the public URL.
 
 Deploy to GitHub Pages
 ===
