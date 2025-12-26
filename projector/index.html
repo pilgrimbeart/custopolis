@@ -4,43 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Custopolis Projector</title>
-    <script type="module" crossorigin src="/custopolis/assets/projector-BqPn2Nad.js"></script>
+    <script type="module" crossorigin src="/custopolis/assets/projector-DwjqOWyg.js"></script>
     <link rel="modulepreload" crossorigin href="/custopolis/assets/session-B6mlqqQk.js">
-    <link rel="stylesheet" crossorigin href="/custopolis/assets/projector-B9J53tgL.css">
+    <link rel="stylesheet" crossorigin href="/custopolis/assets/projector-C8t9HhPu.css">
   </head>
   <body>
-    <main class="app">
-      <header>
-        <p class="eyebrow">Custopolis</p>
-        <h1>Projector Display</h1>
-        <p class="subhead">Shared screen view for the room.</p>
-      </header>
-
-      <section class="panel">
-        <div class="row">
-          <div>
-            <p class="label">Active session</p>
-            <p id="session-id" class="value">Not set</p>
-          </div>
-          <div>
-            <p class="label">Phase</p>
-            <p id="session-phase" class="value">-</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel">
-        <p class="label">Status</p>
-        <p id="status" class="value">Waiting for control.</p>
-      </section>
-
-      <section class="panel">
-        <p class="label">Join on mobile</p>
-        <p id="mobile-url" class="value">-</p>
-        <div class="qr-wrap">
-          <canvas id="qr-canvas" width="280" height="280" aria-label="QR code"></canvas>
-        </div>
-      </section>
+    <main class="screen">
+      <div class="qr-stack">
+        <canvas id="qr-canvas" width="220" height="220" aria-label="QR code"></canvas>
+        <p id="mobile-url" class="qr-url">-</p>
+      </div>
+      <p id="session-id" class="visually-hidden">Not set</p>
+      <p id="session-phase" class="visually-hidden">-</p>
+      <p id="status" class="visually-hidden">Waiting for control.</p>
     </main>
   </body>
 </html>
