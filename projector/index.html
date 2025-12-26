@@ -7,38 +7,14 @@
     <link rel="stylesheet" href="/src/projector/style.css" />
   </head>
   <body>
-    <main class="app">
-      <header>
-        <p class="eyebrow">Custopolis</p>
-        <h1>Projector Display</h1>
-        <p class="subhead">Shared screen view for the room.</p>
-      </header>
-
-      <section class="panel">
-        <div class="row">
-          <div>
-            <p class="label">Active session</p>
-            <p id="session-id" class="value">Not set</p>
-          </div>
-          <div>
-            <p class="label">Phase</p>
-            <p id="session-phase" class="value">-</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="panel">
-        <p class="label">Status</p>
-        <p id="status" class="value">Waiting for control.</p>
-      </section>
-
-      <section class="panel">
-        <p class="label">Join on mobile</p>
-        <p id="mobile-url" class="value">-</p>
-        <div class="qr-wrap">
-          <canvas id="qr-canvas" width="280" height="280" aria-label="QR code"></canvas>
-        </div>
-      </section>
+    <main class="screen">
+      <div class="qr-stack">
+        <canvas id="qr-canvas" width="220" height="220" aria-label="QR code"></canvas>
+        <p id="mobile-url" class="qr-url">-</p>
+      </div>
+      <p id="session-id" class="visually-hidden">Not set</p>
+      <p id="session-phase" class="visually-hidden">-</p>
+      <p id="status" class="visually-hidden">Waiting for control.</p>
     </main>
     <script type="module" src="/src/projector/main.ts"></script>
   </body>

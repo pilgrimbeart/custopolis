@@ -1,8 +1,5 @@
 :root {
-  color-scheme: light;
   font-family: "Trebuchet MS", "Lucida Sans", Arial, sans-serif;
-  background: #0b1020;
-  color: #f5f7ff;
 }
 
 * {
@@ -12,83 +9,49 @@
 body {
   margin: 0;
   min-height: 100vh;
-  display: grid;
-  place-items: center;
   background:
-    linear-gradient(135deg, rgba(11, 16, 32, 0.35), rgba(11, 16, 32, 0.6)),
     url("../projector/assets/initial_backdrop.png") center / cover no-repeat;
 }
 
-.app {
-  width: min(1100px, 94vw);
-  padding: 48px;
-  border-radius: 28px;
-  border: 3px solid #f5f7ff;
-  background: rgba(11, 16, 32, 0.85);
-  box-shadow: 16px 16px 0 #f5f7ff;
+.screen {
+  min-height: 100vh;
+  position: relative;
 }
 
-header {
-  margin-bottom: 32px;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 0.3rem;
-  margin: 0 0 8px;
-}
-
-h1 {
-  margin: 0 0 8px;
-  font-size: 2.8rem;
-}
-
-.subhead {
-  margin: 0;
-  font-size: 1.1rem;
-  max-width: 600px;
-}
-
-.panel {
-  border: 2px solid #f5f7ff;
-  border-radius: 18px;
-  padding: 24px;
-  background: rgba(14, 24, 48, 0.9);
-  margin-bottom: 20px;
-}
-
-.row {
+.qr-stack {
+  position: absolute;
+  top: 24px;
+  left: 24px;
   display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.label {
-  margin: 0 0 6px;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18rem;
-}
-
-.value {
-  margin: 0;
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.qr-wrap {
-  margin-top: 18px;
-  display: flex;
-  justify-content: center;
-  padding: 18px;
-  border-radius: 20px;
-  border: 2px dashed #f5f7ff;
-  background: rgba(14, 24, 48, 0.75);
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.55);
 }
 
 #qr-canvas {
-  width: 280px;
-  height: 280px;
+  width: 220px;
+  height: 220px;
+  display: block;
+  background: #ffffff;
+}
+
+.qr-url {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #fff;
+  word-break: break-all;
+  max-width: 220px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
