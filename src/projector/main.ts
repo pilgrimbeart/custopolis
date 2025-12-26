@@ -83,7 +83,7 @@ const setTimerActive = (active: boolean) => {
 
 const updatePhaseVisibility = () => {
   const isIntroduction = currentPhase === 'introduction';
-  const isRound = /^round-\d+$/.test(currentPhase);
+  const isRound = currentPhase === 'round';
 
   introPanelEl.classList.toggle('hidden', !isIntroduction);
   roundScreenEl.classList.toggle('hidden', !isRound);
@@ -127,12 +127,7 @@ const bindSession = (sessionId: string | null) => {
     roundStartedAt = typeof data?.roundStartedAt === 'number' ? data.roundStartedAt : null;
     sessionPhaseEl.textContent = currentPhase;
     statusEl.textContent = data?.phase ? 'Live' : 'Waiting for control.';
-    if (currentRound) {
-      roundTitleEl.textContent = `Round ${currentRound}`;
-    } else {
-      const match = currentPhase.match(/^round-(\d+)$/);
-      roundTitleEl.textContent = match ? `Round ${match[1]}` : 'Round';
-    }
+    roundTitleEl.textContent = currentRound ? `Round ${currentRound}` : 'Round';
     updateRoundClock();
     updatePhaseVisibility();
   });

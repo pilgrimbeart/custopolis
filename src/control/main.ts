@@ -26,6 +26,7 @@ mobileUrlEl.textContent = defaultMobileUrl;
 let sessionUnsubscribe: Unsubscribe | null = null;
 let activeSessionId: string | null = null;
 let selectedPhase: string | null = null;
+let selectedRound: number | null = null;
 
 const setPhase = async (phase: string) => {
   if (!activeSessionId) {
@@ -34,16 +35,16 @@ const setPhase = async (phase: string) => {
   const updates: Promise<void>[] = [];
   updates.push(set(ref(db, `sessions/${activeSessionId}/phase`), phase));
 
-  const roundMatch = phase.match(/^round-(\d+)$/);
-  if (roundMatch) {
-    updates.push(set(ref(db, `sessions/${activeSessionId}/roundNumber`), Number(roundMatch[1])));
+  if (phase !== 'round') {
+    updates.push(set(ref(db, `sessions/${activeSessionId}/currentRound`), null));
+    updates.push(set(ref(db, `sessions/${activeSessionId}/roundStartedAt`), null));
   }
 
   await Promise.all(updates);
 };
 
 const updateStartButton = () => {
-  startRoundButton.disabled = !(activeSessionId && selectedPhase && /^round-\d+$/.test(selectedPhase));
+  startRoundButton.disabled = !(activeSessionId && selectedPhase === 'round' && selectedRound);
 };
 
 const bindSession = (sessionId: string | null) => {
@@ -101,11 +102,15 @@ phaseButtons.forEach((button) => {
       return;
     }
     selectedPhase = phase;
+    selectedRound = phase === 'round' ? Number(button.dataset.round) : null;
     phaseButtons.forEach((item) => item.classList.toggle('active', item === button));
     updateStartButton();
     button.disabled = true;
     try {
       await setPhase(phase);
+      if (phase === 'round' && selectedRound) {
+        await set(ref(db, `sessions/${activeSessionId}/currentRound`), selectedRound);
+      }
     } catch (error) {
       console.error(error);
       sessionPhaseEl.textContent = 'Error setting phase';
@@ -116,19 +121,12 @@ phaseButtons.forEach((button) => {
 });
 
 startRoundButton.addEventListener('click', async () => {
-  if (!activeSessionId || !selectedPhase) {
+  if (!activeSessionId || selectedPhase !== 'round' || !selectedRound) {
     return;
   }
-  const match = selectedPhase.match(/^round-(\d+)$/);
-  if (!match) {
-    return;
-  }
-  const roundNumber = Number(match[1]);
   startRoundButton.disabled = true;
   try {
     await Promise.all([
-      set(ref(db, `sessions/${activeSessionId}/currentRound`), roundNumber),
-      set(ref(db, `sessions/${activeSessionId}/roundNumber`), roundNumber),
       set(ref(db, `sessions/${activeSessionId}/roundStartedAt`), serverTimestamp())
     ]);
   } catch (error) {

@@ -90,7 +90,7 @@ const setTimerActive = (active: boolean) => {
 };
 
 const updateRoundVisibility = () => {
-  const isRound = /^round-\d+$/.test(currentPhase);
+  const isRound = currentPhase === 'round';
   if (isRound) {
     showRoundScreen();
     setTimerActive(!!roundStartedAt);
@@ -202,12 +202,7 @@ listenActiveSessionId(db, (sessionId) => {
     }
     currentRound = typeof data?.currentRound === 'number' ? data.currentRound : null;
     roundStartedAt = typeof data?.roundStartedAt === 'number' ? data.roundStartedAt : null;
-    if (currentRound) {
-      roundTitleEl.textContent = `Round ${currentRound}`;
-    } else {
-      const match = currentPhase.match(/^round-(\d+)$/);
-      roundTitleEl.textContent = match ? `Round ${match[1]}` : 'Round';
-    }
+    roundTitleEl.textContent = currentRound ? `Round ${currentRound}` : 'Round';
     updateRoundClock();
     updateRoundVisibility();
   });
