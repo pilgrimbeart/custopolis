@@ -47,19 +47,57 @@ At the top of the screen is a Round number (starts at 1), and a timer, which cou
 At the end of each round, a trumpet blares and the winning team gets animated.
 At the end of the final round, "Game Over" appears in front.
 
+The 25 customer names & descriptions are listed in CUSTOMERS.md
+
+Each customer has various "state" variables which are reflected in little badges which appear at the bottom of their icon.
+. Have an EV? (starts without)
+. Have a Pod charger? (starts without)
+. Loyalty: This has a value from 0..10 which corresponds to the alpha channel (10=fully non-transparent), and an affiliation which is either Pod, or Octopus, or Hive. So if the customer has an early Octopus affiliation (translucent Octopus) then with effort they can be "won round" to Pod, through stages where their loyalty to Octopus decreases, then switches to Pod, then increases.
+. Education - either a dunce's cap if they've been anti-educated, or a mortarboard if educated
+
 In order to influence a customer, each player sees on their screen their 5 customers in a vertical row, and can click on one of them.
-Then to the right are 3 buttons: Educate, Offer, Act.
-So to win, players must keep an eye on what's going on with their customers, and do the appropriate thing.
+Then to the right are 3 buttons:
+  * Educate [answer a question in their mind, or counter FUD (Fear, Uncertainty, Doubt) spread by evil media]
+  * Offer [s
+  * Fix [fix a problem, e.g. a broken charger]
+
+To win, players must keep an eye on what's going on with their customers, and take the right action at the right time.
 The exact card that gets played is chosen automatically in response to what else is going on. So if for example the customers is thinking "Should I buy an EV?" and there's a headline from the Daily Mail saying "EVs catch fire" then if a player chooses that customer number and then hits "Educate", the game might automatically choose to display the "EVs catch fire 20 times less than ICE cars" card.
 
-The set of thoughts and responses is dealt with in another file.
+"MOMENTS.json" contains an array of possible 'moments' that a customer can experience, and Pod's possible responses in each case. The very first entry also contains a "_comment" entry explaining possible fields within each entry and their meaning.
 
+The "rules" are never completely explained, but learned by context and experience. Basically:
+  * “Too many bad cards = trouble”
+  * “Education stabilises things and predisposes the customer to whoever educated them". Education doesn't sell things, but if you educated them they they are naturally more loyal.
+  * “Fix clears space, wins loyalty and trust"
+  * “Offers work when the space is clean and the customer is feeling good"
+
+Round themes
+---
+The successive rounds develop in themes:
+
+  * Round 1 — EVs & Chargers
+    * Customers activate with EV curiosity
+    * Only Educate + Offer really matter
+    * No recurring £ yet (or very small)
+  * Round 2 — Tariffs & Smart Charging
+    * Existing customers surface bill shocks
+    * SCR introduced
+    * Recurring £ begins
+    * Education suddenly feels important retroactively
+  * Round 3 — Flex / Smart Home / V2G
+    * Peaks, shocks, competitors intensify
+    * Recurring £ dominates score
+    * Teams who ignored education/support struggle badly
 
 Implementation
 ===
-There are two clients: the "laptop" one which shows the big screen and does audio, and the "mobile" one used by players. We keep these in separate directories, in order to minimise the assets loaded by the mobile one (to avoid local WiFi congestion). 
+There are two clients: the "laptop" one which shows the big screen and does audio, and the "mobile" one used by players.
+Assets specific to each client are kept in separate directories, to minimise the assets loaded by the mobile client (to avoid local WiFi congestion). 
 Each client is a single-page web app. There is no server-side code - the "laptop" client is effectively the server, but all clients (laptop and mobile) use Firebase Realtime to communicate.
-So essentially it's a "real-time shooter" setup, with common state shared by Firebase.
+So essentially it's a "real-time shooter" messaging setup, with common state shared by Firebase.
+The codebase uses Vite + TypeScript with vanilla DOM (no framework) and separate entry points for `/laptop/` and `/mobile/`.
+The architecture and code should minimise bandwidth use to keep the experience reliable for large groups on shared or cellular networks.
 
 The QR code takes the player to the mobile client site, with credentials for the Firebase app.
 Once all assets are loaded the screen displays "Ready".
@@ -71,5 +109,26 @@ The screen is 16:9 ratio.
 Randomly-assigning players to teams will lead to teams with different numbers - can we create a mechanism which is fairer (but still has the property that a player will consistently belong to the same team, even if they restart the app?)
 All screens should show the original QR code in the corner in case of late-comers etc.
 
+Runtime notes
+===
+Firebase Realtime Database holds all shared state. A single `activeSessionId` points at the current cohort so the laptop can reset safely between groups.
+Player assignment uses a Firebase transaction to keep round-robin team counts fair even under simultaneous joins.
 
+Setup
+===
+1) Copy `.env.example` to `.env` and fill the Firebase config values.
+2) `npm install`
+3) `npm run dev` then open `/laptop/` for the host view and `/mobile/` for player devices.
 
+Deploy to GitHub Pages
+===
+1) Edit `package.json` and replace the `homepage` placeholder with your real GitHub username.
+2) `npm run deploy`
+3) Enable GitHub Pages for the repo and set it to deploy from the `gh-pages` branch.
+
+Firebase setup (Realtime Database)
+===
+1) Go to the Firebase console and create a new project.
+2) Add a Web App to the project and copy the config values into `.env`.
+3) Create a Realtime Database (start in test mode for now).
+4) Copy the database URL into `VITE_FIREBASE_DATABASE_URL` in `.env`.

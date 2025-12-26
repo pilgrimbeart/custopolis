@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custopolis Laptop</title>
+    <link rel="stylesheet" href="/src/laptop/style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <p class="eyebrow">Custopolis</p>
+        <h1>Laptop Control</h1>
+        <p class="subhead">Host screen + control surface for rounds and cohorts.</p>
+      </header>
+
+      <section class="panel">
+        <div class="row">
+          <div>
+            <p class="label">Active session</p>
+            <p id="session-id" class="value">Not set</p>
+          </div>
+          <div>
+            <p class="label">Phase</p>
+            <p id="session-phase" class="value">-</p>
+          </div>
+        </div>
+        <div class="row buttons">
+          <button id="new-session">Start new cohort</button>
+          <button id="copy-mobile">Copy mobile URL</button>
+        </div>
+        <p class="hint">New cohort creates a fresh session and clears previous player assignments.</p>
+      </section>
+
+      <section class="panel">
+        <p class="label">Mobile join link</p>
+        <p id="mobile-url" class="value">-</p>
+        <p id="host-warning" class="hint warning" hidden>
+          This page is on localhost. Phones must use the same network URL or a public URL.
+        </p>
+        <div class="qr-controls">
+          <input id="mobile-url-input" type="text" spellcheck="false" />
+          <button id="update-qr">Update QR</button>
+          <button id="reset-qr">Use current URL</button>
+        </div>
+        <div class="qr-wrap">
+          <canvas id="qr-canvas" width="220" height="220" aria-label="QR code"></canvas>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/laptop/main.ts"></script>
+  </body>
+</html>

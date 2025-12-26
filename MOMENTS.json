@@ -1,0 +1,522 @@
+[
+  {
+   "comment" : "All strings must be 10 words or less. A 'moment' is first-person from the customer's perspective. 'educate' is zero or more ways Pod can respond to the moment by educating the customer. 'offer' is any relevant Pod offers we can make to the customer at this moment. 'fix' is any relevant fixes we can offer for this moment. has_ev is true if they must have an EV for this moment to be possible.",
+    "moment": "Should I buy an EV?",
+    "educate": ["Most driving fits EV range today.", "Home charging makes EV ownership easy."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "How much does an EV cost?",
+    "educate": ["Compare total ownership cost, not sticker price.", "Running costs drop with off-peak charging."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Are EVs cheap to run?",
+    "educate": ["Off-peak tariffs cut charging costs significantly.", "Public rapid charging costs more than home."],
+    "offer": ["tariff"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Do EVs catch fire?",
+    "educate": ["Certified install and equipment reduces charging risk.", "Headlines exaggerate rare incidents."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Will range anxiety be a problem?",
+    "educate": ["Daily mileage usually far below EV range.", "Plan fast chargers for long trips."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Will an EV work in winter?",
+    "educate": ["Cold reduces range; preconditioning helps.", "Home charging offsets winter efficiency loss."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "How long do EV batteries last?",
+    "educate": ["Battery degrades slowly, not suddenly.", "Warranties cover battery health for years."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Will my EV have good resale value?",
+    "educate": ["Resale depends on model, demand, battery health.", "Service history and warranty matter."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Which EV brands are reliable?",
+    "educate": ["Check warranty, service network, independent reviews.", "Avoid judging by headlines alone."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Chinese EVs: good idea or risky?",
+    "educate": ["Assess warranty support and parts availability.", "Consider servicing and software updates."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Should I lease or buy?",
+    "educate": ["Leasing reduces risk; buying suits long ownership.", "Compare monthly cost and flexibility."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Can my company buy the EV?",
+    "educate": ["Salary sacrifice can lower effective cost.", "Check benefit-in-kind and scheme terms."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Will the grid cope with EVs?",
+    "educate": ["Smart charging shifts load off-peak.", "Flexibility reduces grid reinforcement costs."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "I heard EVs are worse for climate.",
+    "educate": ["Lifecycle impact improves as grid decarbonises.", "Efficiency and off-peak charging help too."],
+    "offer": [],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "I’m buying an EV—what next?",
+    "educate": ["Arrange home charging early; installs take time.", "Choose tariff and schedule before delivery."],
+    "offer": ["sub", "cash", "tariff"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "My EV arrives soon—what must I do?",
+    "educate": ["Book installation survey and confirm location.", "Plan cable route and permissions now."],
+    "offer": ["sub", "cash"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Do I need a home charger?",
+    "educate": ["3-pin is slow; dedicated chargers are better.", "Smart chargers enable automated off-peak charging."],
+    "offer": ["sub", "cash"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Can I just use a 3-pin plug?",
+    "educate": ["3-pin is slow for daily charging.", "A charger is safer and more convenient."],
+    "offer": ["sub", "cash"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "What charger should I buy?",
+    "educate": ["Choose reliability, support, smart features, compatibility.", "Installation quality matters as much as hardware."],
+    "offer": ["sub", "cash"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "How should I pay for a charger?",
+    "educate": ["Upfront costs less long-term; monthly aids cashflow.", "Consider support and service included."],
+    "offer": ["sub", "cash"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Will the charger work with any supplier?",
+    "educate": ["Check how smart charging works after switching tariff.", "Avoid lock-in surprises by reading terms."],
+    "offer": ["sub", "cash"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "What if I add solar later?",
+    "educate": ["Pick equipment that supports solar scheduling.", "Future-proofing avoids later replacement costs."],
+    "offer": ["sub", "cash"],
+    "fix": [],
+    "has_ev": false
+  },
+  {
+    "moment": "Landlord might refuse a charger install.",
+    "educate": ["Provide certified install plan and safety documents.", "Permission is easier with clear responsibilities."],
+    "offer": ["sub", "cash"],
+    "fix": ["Provide landlord approval pack."],
+    "has_ev": false
+  },
+  {
+    "moment": "Do I need DNO approval?",
+    "educate": ["Some installs need notification; installers handle it.", "Supply capacity determines requirements."],
+    "offer": ["sub", "cash"],
+    "fix": ["Submit DNO notification paperwork."],
+    "has_ev": false
+  },
+  {
+    "moment": "My electricity bill is way higher now!",
+    "educate": ["EV charging adds big kWh quickly.", "Off-peak charging cuts costs a lot."],
+    "offer": ["tariff"],
+    "fix": ["Set off-peak charging schedule."],
+    "has_ev": true
+  },
+  {
+    "moment": "Am I charging at the wrong time?",
+    "educate": ["Peak hours are expensive on most tariffs.", "Schedule charging for cheap off-peak windows."],
+    "offer": ["tariff"],
+    "fix": ["Configure charger and car timers."],
+    "has_ev": true
+  },
+  {
+    "moment": "Why does it charge at 6pm?",
+    "educate": ["Default timers often start when you plug in.", "Car and charger schedules can conflict."],
+    "offer": ["tariff"],
+    "fix": ["Disable car timer; use charger schedule."],
+    "has_ev": true
+  },
+  {
+    "moment": "I’m confused by my tariff and bill.",
+    "educate": ["Look at unit rate, standing charge, windows.", "Your usage pattern matters more than headlines."],
+    "offer": ["tariff"],
+    "fix": ["Explain bill; identify EV charging periods."],
+    "has_ev": true
+  },
+  {
+    "moment": "My neighbour charges cheaper than me.",
+    "educate": ["They likely use an EV off-peak tariff.", "Timing matters as much as the unit rate."],
+    "offer": ["tariff"],
+    "fix": ["Compare your charging times with theirs."],
+    "has_ev": true
+  },
+  {
+    "moment": "How do I make charging cheaper?",
+    "educate": ["Charge off-peak and avoid public rapid rates.", "Smart schedules reduce cost without hassle."],
+    "offer": ["tariff"],
+    "fix": ["Set default off-peak schedule."],
+    "has_ev": true
+  },
+  {
+    "moment": "Public charging is costing a fortune!",
+    "educate": ["Public rapid rates are usually highest.", "Home charging is the cheapest option."],
+    "offer": ["tariff"],
+    "fix": ["Prioritise home charging when possible."],
+    "has_ev": true
+  },
+  {
+    "moment": "My bill varies wildly month to month.",
+    "educate": ["Seasonal use and tariffs shift total costs.", "EV mileage changes kWh more than you think."],
+    "offer": ["tariff"],
+    "fix": ["Review monthly kWh; adjust charging routine."],
+    "has_ev": true
+  },
+  {
+    "moment": "Is smart charging actually worth it?",
+    "educate": ["Savings come from shifting to cheap periods.", "Automation prevents expensive accidental charging."],
+    "offer": ["tariff"],
+    "fix": ["Enable smart schedule; set ready-by time."],
+    "has_ev": true
+  },
+  {
+    "moment": "Why is my household usage so high now?",
+    "educate": ["EV adds large load; check kWh and times.", "Bills reflect both EV and home usage."],
+    "offer": ["tariff"],
+    "fix": ["Separate EV charging usage from household."],
+    "has_ev": true
+  },
+    {
+    "moment": "Energy prices just spiked again!",
+    "educate": ["Off-peak shifting reduces exposure to spikes.", "Flexibility helps when prices jump."],
+    "offer": ["tariff"],
+    "fix": ["Update schedules for cheapest windows."],
+    "has_ev": true
+  },
+  {
+    "moment": "The news says EVs are a disaster.",
+    "educate": ["Headlines cherry-pick; check reliable sources.", "Your real costs depend on charging time."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Everyone says the grid can't cope.",
+    "educate": ["Smart charging avoids peak-time strain.", "Most charging can happen overnight."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Budget changes might hit EV drivers.",
+    "educate": ["Wait for confirmed policy details.", "Running cost is mainly charging price."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Ofgem changes—should I switch tariff?",
+    "educate": ["Compare based on your usage pattern.", "Check exit fees and fixed-term dates."],
+    "offer": ["tariff"],
+    "fix": ["Review current tariff end date."],
+    "has_ev": true
+  },
+  {
+    "moment": "I saw a scary EV fire headline.",
+    "educate": ["Use certified equipment and proper installation.", "Rare events get outsized coverage."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "My charger is offline again!",
+    "educate": [],
+    "offer": [],
+    "fix": ["Restore Wi-Fi connection to charger."],
+    "has_ev": true
+  },
+  {
+    "moment": "My charger won't start charging.",
+    "educate": [],
+    "offer": [],
+    "fix": ["Check breaker, RCD, and cable seating."],
+    "has_ev": true
+  },
+  {
+    "moment": "The app won't connect to my charger.",
+    "educate": [],
+    "offer": [],
+    "fix": ["Re-pair charger; update app firmware."],
+    "has_ev": true
+  },
+  {
+    "moment": "Smart charging didn't run last night.",
+    "educate": ["Car timers can override charger schedules.", "Connectivity issues can block scheduling."],
+    "offer": [],
+    "fix": ["Check schedules, connectivity, and car timers."],
+    "has_ev": true
+  },
+  {
+    "moment": "I didn't get the reward I expected.",
+    "educate": ["Rewards depend on qualifying sessions and rules.", "Not every session earns rewards."],
+    "offer": [],
+    "fix": ["Check session logs and eligibility."],
+    "has_ev": true
+  },
+  {
+    "moment": "Who do I even contact for this?",
+    "educate": ["One provider should own the end-to-end issue.", "Clear support routes reduce hassle."],
+    "offer": [],
+    "fix": ["Direct customer to correct support channel."],
+    "has_ev": true
+  },
+  {
+    "moment": "Is this Pod’s fault or my supplier’s?",
+    "educate": ["Charging involves car, charger, and tariff.", "We can triage and coordinate fixes."],
+    "offer": [],
+    "fix": ["Triage issue across car, charger, tariff."],
+    "has_ev": true
+  },
+  {
+    "moment": "Charging is too slow at home.",
+    "educate": ["Charge rate depends on supply and settings.", "Some cars limit AC charge rate."],
+    "offer": [],
+    "fix": ["Verify supply rating and charger settings."],
+    "has_ev": true
+  },
+  {
+    "moment": "I’m worried smart charging will strand me.",
+    "educate": ["Set ready-by time and minimum charge.", "You can override anytime."],
+    "offer": [],
+    "fix": ["Configure ready-by and minimum charge."],
+    "has_ev": true
+  },
+  {
+    "moment": "Cash for flex sounds like a scam.",
+    "educate": ["Grid pays for shifting demand off-peak.", "Small rewards add up over time."],
+    "offer": ["tariff"],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Is it really money for nothing?",
+    "educate": ["You trade timing flexibility for payment.", "It works best with automation."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Will flex damage my battery?",
+    "educate": ["Normal charging patterns are usually fine.", "Avoid extremes; set sensible limits."],
+    "offer": [],
+    "fix": ["Set charge limit and temperature safeguards."],
+    "has_ev": true
+  },
+  {
+    "moment": "Why isn't everyone doing flex?",
+    "educate": ["Many people don't know it exists.", "Trust and setup effort are barriers."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "My friend earns more flex rewards than me.",
+    "educate": ["Rewards vary with markets and participation.", "Timing and eligibility change payouts."],
+    "offer": [],
+    "fix": ["Check settings and participation windows."],
+    "has_ev": true
+  },
+  {
+    "moment": "Should I get solar panels too?",
+    "educate": ["Payback depends on self-use, not headlines.", "EV charging can soak up daytime solar."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Is a home battery worth it?",
+    "educate": ["Batteries shift usage to cheap times.", "Value rises with smart tariffs and solar."],
+    "offer": ["tariff"],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Do I need a battery if I have an EV?",
+    "educate": ["EV battery is for driving, not home use.", "Home battery can optimise household loads."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Should I get a heat pump?",
+    "educate": ["Heat pumps work best in insulated homes.", "Tariffs and scheduling can cut running costs."],
+    "offer": ["tariff"],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "How do I optimise EV, solar, battery together?",
+    "educate": ["Coordinate timing: solar peaks and cheap windows.", "Integrated control beats manual juggling."],
+    "offer": ["tariff"],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "My solar export feels wasted.",
+    "educate": ["Charging midday increases solar self-consumption.", "Scheduling can reduce exports automatically."],
+    "offer": ["tariff"],
+    "fix": ["Set midday charging when solar surplus."],
+    "has_ev": true
+  },
+  {
+    "moment": "My battery isn't saving what I expected.",
+    "educate": ["Savings depend on tariff spreads and control.", "Wrong schedules can waste battery cycles."],
+    "offer": ["tariff"],
+    "fix": ["Tune schedules to tariff and solar."],
+    "has_ev": true
+  },
+  {
+    "moment": "Heat pump made my bills worse!",
+    "educate": ["Setup and insulation strongly affect outcomes.", "Tariff timing matters for heating."],
+    "offer": ["tariff"],
+    "fix": ["Adjust heat pump schedule and settings."],
+    "has_ev": true
+  },
+  {
+    "moment": "What upgrades save the most money?",
+    "educate": ["Insulation often beats gadgets for savings.", "Then electrify and optimise with tariffs."],
+    "offer": ["tariff"],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "I'm moving house—what about my charger?",
+    "educate": ["Decide leave, remove, or reinstall early.", "Update tariff and account details promptly."],
+    "offer": ["sub", "cash", "tariff"],
+    "fix": ["Arrange move-out and move-in setup."],
+    "has_ev": true
+  },
+  {
+    "moment": "I'm moving—can I keep my cheap tariff?",
+    "educate": ["Moving can change eligibility and meter details.", "Check contract terms and exit fees."],
+    "offer": ["tariff"],
+    "fix": ["Update address, meter, and billing details."],
+    "has_ev": true
+  },
+  {
+    "moment": "I’m switching jobs—what about salary sacrifice?",
+    "educate": ["Scheme terms vary; check early exit rules.", "Keep charging setup independent of employer."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "I'm retiring—how do I cut bills?",
+    "educate": ["Optimise tariffs and schedules for lower peaks.", "Invest in insulation and smart timing."],
+    "offer": ["tariff"],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Second EV incoming—will this cope?",
+    "educate": ["Two EVs need smarter scheduling.", "Tariff windows and load limits matter."],
+    "offer": ["tariff"],
+    "fix": ["Set schedules for both vehicles."],
+    "has_ev": true
+  },
+  {
+    "moment": "Guests need to charge at my house.",
+    "educate": ["Guest charging is easiest with clear access rules.", "Avoid peak charging if possible."],
+    "offer": [],
+    "fix": ["Enable guest mode and basic instructions."],
+    "has_ev": true
+  },
+  {
+    "moment": "How do I explain smart charging to friends?",
+    "educate": ["It shifts charging to cheap times automatically.", "You set ready-by time; it handles rest."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "I want to brag about flex rewards.",
+    "educate": ["Flex pays for shifting demand off-peak.", "Small rewards compound across months."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "My mate says EVs are pointless.",
+    "educate": ["Compare your real costs and convenience.", "Home charging changes everything."],
+    "offer": [],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "Neighbours keep asking about my charger.",
+    "educate": ["A reliable install matters most.", "Pair it with a good tariff schedule."],
+    "offer": ["sub", "cash", "tariff"],
+    "fix": [],
+    "has_ev": true
+  },
+  {
+    "moment": "I want friends to sign up like me.",
+    "educate": ["Share simple steps: charger, tariff, schedule.", "Trust comes from smooth first experience."],
+    "offer": ["sub", "cash", "tariff"],
+    "fix": [],
+    "has_ev": true
+  }
+]
+
