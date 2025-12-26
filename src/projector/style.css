@@ -24,7 +24,7 @@ body {
   left: 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   padding: 12px;
   border-radius: 12px;
   background: rgba(0, 0, 0, 0.55);
@@ -43,6 +43,16 @@ body {
   color: #fff;
   word-break: break-all;
   max-width: 220px;
+}
+
+.team-counts {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 .visually-hidden {

@@ -1,5 +1,5 @@
 // Control client entry point for session control.
-import { onValue, ref, type DataSnapshot, type Unsubscribe } from 'firebase/database';
+import { onValue, ref, set, type DataSnapshot, type Unsubscribe } from 'firebase/database';
 import { byId } from '../common/dom';
 import { getDatabaseInstance } from '../common/firebase';
 import { createSession, listenActiveSessionId } from '../common/session';
@@ -11,6 +11,7 @@ const sessionPhaseEl = byId<HTMLParagraphElement>('session-phase');
 const mobileUrlEl = byId<HTMLParagraphElement>('mobile-url');
 const newSessionButton = byId<HTMLButtonElement>('new-session');
 const copyMobileButton = byId<HTMLButtonElement>('copy-mobile');
+const phaseButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-phase]'));
 
 const baseUrl = import.meta.env.BASE_URL;
 const publicBaseUrl = import.meta.env.VITE_PUBLIC_BASE_URL;
@@ -22,8 +23,25 @@ const defaultMobileUrl = new URL('mobile/', defaultBaseUrl).toString();
 mobileUrlEl.textContent = defaultMobileUrl;
 
 let sessionUnsubscribe: Unsubscribe | null = null;
+let activeSessionId: string | null = null;
+
+const setPhase = async (phase: string) => {
+  if (!activeSessionId) {
+    return;
+  }
+  const updates: Promise<void>[] = [];
+  updates.push(set(ref(db, `sessions/${activeSessionId}/phase`), phase));
+
+  const roundMatch = phase.match(/^round-(\d+)$/);
+  if (roundMatch) {
+    updates.push(set(ref(db, `sessions/${activeSessionId}/roundNumber`), Number(roundMatch[1])));
+  }
+
+  await Promise.all(updates);
+};
 
 const bindSession = (sessionId: string | null) => {
+  activeSessionId = sessionId;
   sessionIdEl.textContent = sessionId ?? 'Not set';
   sessionPhaseEl.textContent = '-';
 
@@ -67,4 +85,22 @@ copyMobileButton.addEventListener('click', async () => {
     console.error(error);
     copyMobileButton.textContent = 'Copy failed';
   }
+});
+
+phaseButtons.forEach((button) => {
+  button.addEventListener('click', async () => {
+    const phase = button.dataset.phase;
+    if (!phase) {
+      return;
+    }
+    button.disabled = true;
+    try {
+      await setPhase(phase);
+    } catch (error) {
+      console.error(error);
+      sessionPhaseEl.textContent = 'Error setting phase';
+    } finally {
+      button.disabled = false;
+    }
+  });
 });

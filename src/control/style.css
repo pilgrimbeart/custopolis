@@ -98,3 +98,15 @@ button:hover {
   font-size: 0.9rem;
   color: #555;
 }
+
+.phase-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.phase-buttons button {
+  width: 180px;
+  justify-content: center;
+}

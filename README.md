@@ -11,7 +11,13 @@ Welcome screen
 ---
 Players arrive in a room where a QR code is displayed on the projector (driven by the projector client - see "Game Logic" below).
 As each player scans the QR code they are taken to a screen which shows their Team affiliation and colour, and the word "READY" (i.e. they are running the mobile client).
-There are 5 teams, and each team has a colour and an animated mascot. The 5 colours (to be colourblind-friendly) are: dark red, mid-green, blue, bright orange, pink.
+There are 5 teams, and each team has a colour and an animated mascot.
+The 5 colours (to be colourblind-friendly) are:
+  1. dark red
+  2. mid-green
+  3. blue
+  4. bright orange
+  5. pink
 Each player is (persistently) allocated to one team, apparently at random. The count of players ready in each team is shown next to the animated mascot,
 The screen has a backdrop saying "Welcome to Custopolis" with a backdrop showing a village name in front of a winding road down to a hamlet.
 The controller presses a button on the control console and the screen changes to...
