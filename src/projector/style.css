@@ -14,7 +14,9 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at top, #1a2340 0%, #0b1020 70%);
+  background:
+    linear-gradient(135deg, rgba(11, 16, 32, 0.35), rgba(11, 16, 32, 0.6)),
+    url("../projector/assets/initial_backdrop.png") center / cover no-repeat;
 }
 
 .app {
@@ -74,4 +76,19 @@ h1 {
   margin: 0;
   font-size: 1.4rem;
   font-weight: 700;
+}
+
+.qr-wrap {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  padding: 18px;
+  border-radius: 20px;
+  border: 2px dashed #f5f7ff;
+  background: rgba(14, 24, 48, 0.75);
+}
+
+#qr-canvas {
+  width: 280px;
+  height: 280px;
 }

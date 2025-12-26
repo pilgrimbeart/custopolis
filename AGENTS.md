@@ -9,7 +9,7 @@ Since sometimes you can be quitted unexpectedly in the middle of work:
 
 ## How we work (for humans + coding agents)
 - We are working together to "vibe code" this app from scratch.
-- You have full permissions so can add, commit and push. For GitHub Pages testing, it's OK to deploy (`npm run deploy`) and push as part of the normal workflow.
+- You have full permissions so can add, commit and push. For GitHub Pages testing, always run `npm run deploy` and push on each change cycle.
 - No-one else is using this codebase yet, so take the advantage of refactoring whenever necessary, to keep it clean and lean, and easy to understand.
 - Add comments to function and at the start of modules, as relevant, and keep them up-to-date.
 - Do NOT add magic "bodge" values in code. Try to minimise hard-wired knowledge in the code, it should all be data-driven from files like MOMENTS.json.

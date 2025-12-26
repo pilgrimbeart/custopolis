@@ -14,9 +14,7 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
-  background:
-    linear-gradient(135deg, rgba(248, 242, 232, 0.94), rgba(248, 242, 232, 0.82)),
-    url("../control/assets/initial_backdrop.png") center / cover no-repeat;
+  background: radial-gradient(circle at top, #fdf6d8 0%, #f8f2e8 55%, #efe4d0 100%);
 }
 
 .app {
@@ -99,43 +97,4 @@ button:hover {
   margin: 12px 0 0;
   font-size: 0.9rem;
   color: #555;
-}
-
-.warning {
-  color: #8a3b12;
-  font-weight: 600;
-}
-
-.qr-controls {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 12px;
-}
-
-.qr-controls input {
-  flex: 1 1 260px;
-  padding: 8px 12px;
-  border-radius: 999px;
-  border: 2px solid #1b1b1b;
-  font-size: 0.95rem;
-}
-
-.qr-controls button {
-  padding: 8px 14px;
-}
-
-.qr-wrap {
-  margin-top: 16px;
-  display: flex;
-  justify-content: center;
-  padding: 16px;
-  border-radius: 16px;
-  border: 2px dashed #1b1b1b;
-  background: #fff7e6;
-}
-
-#qr-canvas {
-  width: 220px;
-  height: 220px;
 }
