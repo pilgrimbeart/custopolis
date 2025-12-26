@@ -16,7 +16,7 @@ body {
   place-items: center;
   background:
     linear-gradient(135deg, rgba(248, 242, 232, 0.94), rgba(248, 242, 232, 0.82)),
-    url("../laptop/assets/initial_backdrop.png") center / cover no-repeat;
+    url("../control/assets/initial_backdrop.png") center / cover no-repeat;
 }
 
 .app {

@@ -6,7 +6,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         root: path.resolve(__dirname, 'index.html'),
-        laptop: path.resolve(__dirname, 'laptop/index.html'),
+        control: path.resolve(__dirname, 'control/index.html'),
+        projector: path.resolve(__dirname, 'projector/index.html'),
         mobile: path.resolve(__dirname, 'mobile/index.html')
       }
     }

@@ -1,4 +1,4 @@
-// Firebase initialization shared by laptop and mobile clients.
+// Firebase initialization shared by projector, control, and mobile clients.
 import { initializeApp, type FirebaseApp } from 'firebase/app';
 import { getDatabase, type Database } from 'firebase/database';
 

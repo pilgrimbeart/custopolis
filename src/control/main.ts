@@ -1,4 +1,4 @@
-// Laptop client entry point for session control.
+// Control client entry point for session control.
 import { onValue, ref, type DataSnapshot, type Unsubscribe } from 'firebase/database';
 import QRCode from 'qrcode';
 import { byId } from '../common/dom';
@@ -26,6 +26,7 @@ const defaultBaseUrl = publicBaseUrl
   ? normalizeBaseUrl(publicBaseUrl)
   : new URL(baseUrl, window.location.origin).toString();
 const defaultMobileUrl = new URL('mobile/', defaultBaseUrl).toString();
+const defaultProjectorUrl = new URL('projector/', defaultBaseUrl).toString();
 const hostname = window.location.hostname;
 
 if (hostname === 'localhost' || hostname === '127.0.0.1') {
@@ -49,6 +50,11 @@ QRCode.toCanvas(qrCanvas, url, {
 
 const storedOverride = localStorage.getItem(STORAGE_KEY);
 renderQr(storedOverride ?? defaultMobileUrl);
+
+const projectorLink = document.createElement('p');
+projectorLink.className = 'hint';
+projectorLink.textContent = `Projector URL: ${defaultProjectorUrl}`;
+mobileUrlEl.insertAdjacentElement('afterend', projectorLink);
 
 updateQrButton.addEventListener('click', () => {
   const nextUrl = mobileUrlInput.value.trim();

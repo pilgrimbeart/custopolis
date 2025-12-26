@@ -19,9 +19,10 @@ Since sometimes you can be quitted unexpectedly in the middle of work:
 - Repo is new; stack and structure are still evolving.
 
 ## Repo structure (fill in as created)
-- `/laptop/` and `/mobile/`: HTML entry points for each client.
+- `/projector/`, `/control/`, `/mobile/`: HTML entry points for each client.
 - `/src/common/`: shared Firebase + session helpers.
-- `/src/laptop/`: laptop client entry + styles.
+- `/src/control/`: control client entry + styles.
+- `/src/projector/`: projector client entry + styles.
 - `/src/mobile/`: mobile client entry + styles.
 
 ## Decisions / changelog
@@ -30,3 +31,4 @@ Since sometimes you can be quitted unexpectedly in the middle of work:
 - 2025-12-26: Firebase Realtime Database stores shared state; `activeSessionId` points to current cohort.
 - 2025-12-26: Team assignment uses a transaction-based round-robin counter per session.
 - 2025-12-26: TODO: tighten Firebase Realtime Database rules after initial connectivity test.
+- 2025-12-26: Split UI into projector (shared display), control (operator), and mobile (player).

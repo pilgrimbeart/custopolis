@@ -9,12 +9,12 @@ Around 35 people play the game at once, all in the same space, over 15 minutes.
 
 Welcome screen
 ---
-Players arrive in a room where a QR code is displayed on the projector (this is being driven by a laptop running one of the clients - see "Game Logic" below).
-As each player scans the QR code they are taken to a screen which shows their Team affiliation and colour, and the word "READY" (i.e. they are running the second of the two clients).
+Players arrive in a room where a QR code is displayed on the projector (driven by the projector client - see "Game Logic" below).
+As each player scans the QR code they are taken to a screen which shows their Team affiliation and colour, and the word "READY" (i.e. they are running the mobile client).
 There are 5 teams, and each team has a colour and an animated mascot. The 5 colours (to be colourblind-friendly) are: dark red, mid-green, blue, bright orange, pink.
 Each player is (persistently) allocated to one team, apparently at random. The count of players ready in each team is shown next to the animated mascot,
 The screen has a backdrop saying "Welcome to Custopolis" with a backdrop showing a village name in front of a winding road down to a hamlet.
-The controller presses a button on the laptop and the screen changes to...
+The controller presses a button on the control console and the screen changes to...
 
 Introduction screen
 ---
@@ -92,11 +92,15 @@ The successive rounds develop in themes:
 
 Implementation
 ===
-There are two clients: the "laptop" one which shows the big screen and does audio, and the "mobile" one used by players.
+There are three clients:
+  * Projector: big shared screen + audio.
+  * Control: operator console for starting rounds/cohorts and monitoring status.
+  * Mobile: player UI for choosing actions.
+  
 Assets specific to each client are kept in separate directories, to minimise the assets loaded by the mobile client (to avoid local WiFi congestion). 
-Each client is a single-page web app. There is no server-side code - the "laptop" client is effectively the server, but all clients (laptop and mobile) use Firebase Realtime to communicate.
+Each client is a single-page web app. There is no server-side code - the "control" client is effectively the server, but all clients (projector, control, mobile) use Firebase Realtime to communicate.
 So essentially it's a "real-time shooter" messaging setup, with common state shared by Firebase.
-The codebase uses Vite + TypeScript with vanilla DOM (no framework) and separate entry points for `/laptop/` and `/mobile/`.
+The codebase uses Vite + TypeScript with vanilla DOM (no framework) and separate entry points for `/projector/`, `/control/`, and `/mobile/`.
 The architecture and code should minimise bandwidth use to keep the experience reliable for large groups on shared or cellular networks.
 
 The QR code takes the player to the mobile client site, with credentials for the Firebase app.
@@ -111,14 +115,14 @@ All screens should show the original QR code in the corner in case of late-comer
 
 Runtime notes
 ===
-Firebase Realtime Database holds all shared state. A single `activeSessionId` points at the current cohort so the laptop can reset safely between groups.
+Firebase Realtime Database holds all shared state. A single `activeSessionId` points at the current cohort so the control console can reset safely between groups.
 Player assignment uses a Firebase transaction to keep round-robin team counts fair even under simultaneous joins.
 
 Setup
 ===
 1) Copy `.env.example` to `.env` and fill the Firebase config values.
 2) `npm install`
-3) `npm run dev` then open `/laptop/` for the host view and `/mobile/` for player devices.
+3) `npm run dev` then open `/projector/` for the shared screen, `/control/` for the operator console, and `/mobile/` for player devices.
 
 Deploy to GitHub Pages
 ===
