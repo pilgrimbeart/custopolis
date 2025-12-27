@@ -39,7 +39,9 @@ const defaultBaseUrl = publicBaseUrl
   ? normalizeBaseUrl(publicBaseUrl)
   : new URL(baseUrl, window.location.origin).toString();
 const mobileUrl = new URL('mobile/', defaultBaseUrl).toString();
-const customerImgUrl = new URL('../common/assets/generic_customer.png', import.meta.url).toString();
+const customerImgUrls = Array.from({ length: 25 }, (_, index) =>
+  new URL(`../common/assets/customer_image_${String(index + 1).padStart(2, '0')}.png`, import.meta.url).toString()
+);
 
 mobileUrlEl.textContent = mobileUrl;
 QRCode.toCanvas(qrCanvas, mobileUrl, {
@@ -167,10 +169,11 @@ const buildTeamGrid = () => {
     column.appendChild(heading);
 
     for (let customerIndex = 0; customerIndex < CUSTOMERS_PER_TEAM; customerIndex += 1) {
+      const imageIndex = teamIndex * CUSTOMERS_PER_TEAM + customerIndex;
       const card = document.createElement('div');
       card.className = 'customer-card';
       const img = document.createElement('img');
-      img.src = customerImgUrl;
+      img.src = customerImgUrls[imageIndex] ?? customerImgUrls[0];
       img.alt = 'Customer';
       card.appendChild(img);
       column.appendChild(card);

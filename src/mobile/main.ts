@@ -34,7 +34,9 @@ let timerId: number | null = null;
 let serverOffsetMs = 0;
 let selectedCustomerIndex: number | null = null;
 let assignedTeamId: number | null = null;
-const customerImgUrl = new URL('../common/assets/generic_customer.png', import.meta.url).toString();
+const customerImgUrls = Array.from({ length: 25 }, (_, index) =>
+  new URL(`../common/assets/customer_image_${String(index + 1).padStart(2, '0')}.png`, import.meta.url).toString()
+);
 
 const updateStatus = (text: string) => {
   statusEl.textContent = text;
@@ -111,14 +113,15 @@ const updateActionButtons = () => {
   actionFixEl.disabled = !enabled;
 };
 
-const buildCustomerList = () => {
+const buildCustomerList = (teamId: number) => {
   customerListEl.innerHTML = '';
+  const startIndex = teamId * CUSTOMERS_PER_TEAM;
   for (let i = 0; i < CUSTOMERS_PER_TEAM; i += 1) {
     const card = document.createElement('button');
     card.type = 'button';
     card.className = 'customer-card';
     const img = document.createElement('img');
-    img.src = customerImgUrl;
+    img.src = customerImgUrls[startIndex + i] ?? customerImgUrls[0];
     img.alt = 'Customer';
     const label = document.createElement('span');
     label.textContent = `Customer ${i + 1}`;
@@ -136,7 +139,6 @@ const buildCustomerList = () => {
   }
 };
 
-buildCustomerList();
 updateActionButtons();
 
 listenActiveSessionId(db, async (sessionId) => {
@@ -162,6 +164,7 @@ listenActiveSessionId(db, async (sessionId) => {
     const playerId = getOrCreatePlayerId();
     const teamId = await ensurePlayerTeam(db, sessionId, playerId);
     assignedTeamId = teamId;
+    buildCustomerList(teamId);
     teamIdEl.textContent = `Team ${teamId + 1}`;
     updateStatus('Ready');
     window.requestAnimationFrame(() => showReadyScreen(teamId));
