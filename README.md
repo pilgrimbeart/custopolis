@@ -19,7 +19,7 @@ The 5 colours (to be colourblind-friendly) are:
   4. bright orange
   5. pink
 Each player is (persistently) allocated to one team, apparently at random. The count of players ready in each team is shown next to the animated mascot,
-The screen has a backdrop saying "Welcome to Custopolis" with a backdrop showing a village name in front of a winding road down to a hamlet.
+The Welcome and Introduction screens use the backdrop image; the Round screens are on a plain white background.
 The controller presses a button on the control console and the screen changes to...
 
 Introduction screen
@@ -53,7 +53,7 @@ At the top of the screen is a Round number (starts at 1), and a timer, which cou
 At the end of each round, a trumpet blares and the winning team gets animated.
 At the end of the final round, "Game Over" appears in front.
 
-The 25 customer names & descriptions are listed in CUSTOMERS.md
+The 25 customer names & descriptions are listed in CUSTOMERS.md, and the Round screens show their generated portraits.
 
 Each customer has various "state" variables which are reflected in little badges which appear at the bottom of their icon.
 . Have an EV? (starts without)
@@ -64,7 +64,7 @@ Each customer has various "state" variables which are reflected in little badges
 In order to influence a customer, each player sees on their screen their 5 customers in a vertical row, and can click on one of them.
 Then to the right are 3 buttons:
   * Educate [answer a question in their mind, or counter FUD (Fear, Uncertainty, Doubt) spread by evil media]
-  * Offer [s
+  * Offer [offer something of value]
   * Fix [fix a problem, e.g. a broken charger]
 
 To win, players must keep an eye on what's going on with their customers, and take the right action at the right time.
@@ -108,22 +108,23 @@ Each client is a single-page web app. There is no server-side code - the "contro
 So essentially it's a "real-time shooter" messaging setup, with common state shared by Firebase.
 The codebase uses Vite + TypeScript with vanilla DOM (no framework) and separate entry points for `/projector/`, `/control/`, and `/mobile/`.
 The architecture and code should minimise bandwidth use to keep the experience reliable for large groups on shared or cellular networks.
-The projector client displays the welcome backdrop and a top-left QR code; the control client shows no QR code.
+The projector client displays the welcome backdrop and a top-left QR code on Welcome/Introduction; the control client shows no QR code.
 
 The QR code takes the player to the mobile client site, with credentials for the Firebase app.
-Once all assets are loaded the screen displays "Ready".
+Once all assets are loaded the screen displays "TEAM X READY".
 Mascots are .PNG files with transparency, numbered X_001, X_002 etc., which are displayed in sequence (bouncing from first to last and back again).
 
 The backdrops of the 3 screens should be easily-editable PNGs.
 The screen is 16:9 ratio.
 
-Randomly-assigning players to teams will lead to teams with different numbers - can we create a mechanism which is fairer (but still has the property that a player will consistently belong to the same team, even if they restart the app?)
-All screens should show the original QR code in the corner in case of late-comers etc.
+Team assignment uses a round-robin transaction in Firebase to keep teams balanced within each cohort.
+The projector shows the QR code during Welcome/Introduction for late-comers.
 
 Runtime notes
 ===
 Firebase Realtime Database holds all shared state. A single `activeSessionId` points at the current cohort so the control console can reset safely between groups.
 Player assignment uses a Firebase transaction to keep round-robin team counts fair even under simultaneous joins.
+Round timing uses Firebase server time: the control writes `roundStartedAt` and clients compute countdown using the server offset.
 
 Setup
 ===
