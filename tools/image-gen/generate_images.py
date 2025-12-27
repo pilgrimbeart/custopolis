@@ -63,6 +63,11 @@ def main() -> int:
         help="Output directory for PNGs"
     )
     parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Overwrite existing images"
+    )
+    parser.add_argument(
         "--sleep",
         type=float,
         default=0.5,
@@ -83,6 +88,9 @@ def main() -> int:
     for idx, character in enumerate(characters, start=1):
         filename = f"customer_image_{idx:02d}.png"
         output_path = output_dir / filename
+        if output_path.exists() and not args.overwrite:
+            print(f"Skipping existing {filename}")
+            continue
         print(f"Generating {filename} for: {character}")
         png_bytes = generate_image(client, character)
         write_resized(png_bytes, output_path)
